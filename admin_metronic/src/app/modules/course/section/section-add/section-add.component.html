@@ -1,0 +1,126 @@
+<div class="row">
+  <div class="col-6">
+    <div class="card">
+      <!--begin::Card header-->
+      <div class="card-header ">
+        <div class="card-title fs-3 fw-bolder">Nueva seccion</div>
+      </div>
+      <!--end::Card header-->
+      <!--begin::Form-->
+      <form id="kt_project_settings_form" class="form fv-plugins-bootstrap5 fv-plugins-framework"
+        novalidate="novalidate">
+        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading |async"></span>
+        <div class="card-body p-9">
+
+          <div class="row mb-8">
+
+            <div class="col-12">
+              <label class="fs-6 fw-bold mt-2 mb-3">Titulo</label>
+              <input type="text" class="form-control form-control-solid" [(ngModel)]="title" name="title">
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card-footer d-flex justify-content-end py-6 px-9">
+          <button type="button" (click)="save()" class="btn btn-primary"
+            id="kt_project_settings_submit">Guardar</button>
+        </div>
+        <input type="hidden">
+        <div></div>
+      </form>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card card-xl-stretch mb-xl-8">
+      <!--begin::Header-->
+      <div class="card-header border-0 pt-5">
+        <h3 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-3 mb-1">Secciones</span>
+          <span class="text-muted mt-1 fw-bold fs-7">Lista de secciones del curso</span>
+        </h3>
+
+      </div>
+      <!--end::Header-->
+      <!--begin::Body-->
+      <div class="card-body py-3">
+        <div class="tab-content">
+          <!--begin::Tap pane-->
+          <div class="tab-pane fade show active" id="kt_table_widget_7_tab_1">
+            <!--begin::Table container-->
+            <div class="table-responsive">
+              <!--begin::Table-->
+              <table class="table align-middle gs-0 gy-3">
+                <!--begin::Table head-->
+                <thead>
+                  <tr>
+                    <th class="p-0 w-50px"></th>
+                    <th class="p-0 min-w-150px"></th>
+                    <th class="p-0 min-w-140px"></th>
+                    <th class="p-0 min-w-120px"></th>
+                  </tr>
+                </thead>
+                <!--end::Table head-->
+                <!--begin::Table body-->
+                <tbody>
+                  <ng-container *ngFor="let SECTION of SECTIONS, let i=index">
+                    <tr>
+                      <td>
+                        <div class="symbol symbol-50px me-2">
+                          <span class="">
+                            <!--begin::Svg Icon | path: icons/duotune/coding/cod002.svg-->
+                            <span class="svg-icon svg-icon-2x svg-icon-primary">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path opacity="0.3" d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z" fill="currentColor"></path>
+                                <path d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z" fill="currentColor"></path>
+                              </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        <a href="#" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ SECTION.name }}</a>
+                        <span class="text-muted fw-bold d-block fs-7">Sección: {{ i + 1}}</span>
+                      </td>
+                      <td class="text-end">
+                        <span class="text-muted fw-bold d-block fs-8">0</span>
+                        <span class="text-dark fw-bolder d-block fs-7">Nº de clases</span>
+                      </td>
+                      <td class="text-end">
+                        <span class="badge badge-light-success fs-7 fw-bolder" *ngIf="SECTION.state == 1">Activa</span>
+                        <span class="badge badge-light-danger fs-7 fw-bolder" *ngIf="SECTION.state == 2">Inactiva</span>
+
+                      </td>
+                      <td class="text-end">
+                        <a href="#" onclick="return false;" [routerLink]="['/cursos/list/secciones/clases/', SECTION.id]" class="btn btn-icon btn-active-color-primary btn-sm me-1" title="Clases">
+                          <i class="bi bi-collection"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="btn btn-icon btn-active-color-primary btn-sm me-1"
+                          (click)="editSection(SECTION)" title="Editar">
+                          <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="btn btn-icon btn-active-color-primary btn-sm"
+                          (click)="deleteSection(SECTION)" title="Cambiar estado">
+                          <i class="bi bi-arrow-left-right"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </ng-container>
+
+
+                </tbody>
+                <!--end::Table body-->
+              </table>
+            </div>
+            <!--end::Table-->
+          </div>
+          <!--end::Tap pane-->
+
+        </div>
+      </div>
+      <!--end::Body-->
+    </div>
+
+  </div>
+</div>

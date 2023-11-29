@@ -1,0 +1,257 @@
+<div class="card">
+  <!--begin::Card header-->
+  <div class="card-header ">
+    <div class="card-title fs-3 fw-bolder">Nueva campaña de descuento</div>
+  </div>
+  <!--end::Card header-->
+  <!--begin::Form-->
+  <form id="kt_project_settings_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading |async"></span>
+    <div class="card-body p-9">
+
+      <div class="row mb-8">
+
+        <div class="col-6">
+          <div class="row g-6 mt-2">
+            <div class="col-6">
+              <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_discount == 1}"
+                data-kt-button="true">
+                <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                  <input class="form-check-input" type="radio" name="type_discount" [checked]="type_discount == 1" (click)="selectedTypeDiscount(1)">
+                </span>
+                <span class="ms-5">
+                  <span class="fs-6 fw-bolder mb-1 d-block">Descuento por monto</span>
+                </span>
+              </label>
+            </div>
+            <div class="col-6">
+              <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_discount == 2}"
+                data-kt-button="true">
+                <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                  <input class="form-check-input" type="radio" name="type_discount" [checked]="type_discount == 2" (click)="selectedTypeDiscount(2)">
+                </span>
+                <span class="ms-5">
+                  <span class="fs-6 fw-bolder mb-1 d-block">Descuento por %</span>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-2">
+          <label class="fs-6 fw-bold mt-2 mb-3">Descuento</label>
+          <input type="number" class="form-control form-control-solid" [(ngModel)]="discount" name="cop" placeholder="120" min="1">
+        </div>
+
+        <div class="col-2">
+          <div class="input_group input-group-solid">
+            <label class="fs-6 fw-bold mt-2 mb-3">Fecha inicial</label>
+            <input type="date" class="form-control form-control-lg form-control-solid" [(ngModel)]="start_date" name="start_date"/>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="input_group input-group-solid">
+            <label class="fs-6 fw-bold mt-2 mb-3">Fecha final</label>
+            <input type="date" class="form-control form-control-lg form-control-solid" [(ngModel)]="end_date" name="end_date"/>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row mb-8">
+
+        <div class="col-12">
+          <div class="row g-6 mt-2">
+            <div class="col-4">
+              <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_campaing == 1}"
+                data-kt-button="true">
+                <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                  <input class="form-check-input" type="radio" name="type_campaing" [checked]="type_campaing == 1" (click)="selectedTypeCampaing(1)">
+                </span>
+                <span class="ms-5">
+                  <span class="fs-6 fw-bolder mb-1 d-block">Campaña normal</span>
+                </span>
+              </label>
+            </div>
+            <div class="col-4">
+              <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_campaing == 2}"
+                data-kt-button="true">
+                <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                  <input class="form-check-input" type="radio" name="type_campaing" [checked]="type_campaing == 2" (click)="selectedTypeCampaing(2)">
+                </span>
+                <span class="ms-5">
+                  <span class="fs-6 fw-bolder mb-1 d-block">Campaña flash</span>
+                </span>
+              </label>
+            </div>
+            <div class="col-4">
+              <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_campaing == 3}"
+                data-kt-button="true">
+                <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                  <input class="form-check-input" type="radio" name="type_campaing" [checked]="type_campaing == 3" (click)="selectedTypeCampaing(3)">
+                </span>
+                <span class="ms-5">
+                  <span class="fs-6 fw-bolder mb-1 d-block">Campaña banner</span>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-8">
+        <div class="col-4">
+          <div class="row g-3 mt-2">
+            <div class="col-6">
+              <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': clase_discount == 1}"
+                data-kt-button="true">
+                <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                  <input class="form-check-input" type="radio" name="clase_discount" [checked]="clase_discount == 1" (click)="selectedClaseDiscount(1)">
+                </span>
+                <span class="ms-5">
+                  <span class="fs-6 fw-bolder mb-1 d-block">Cursos</span>
+                </span>
+              </label>
+            </div>
+            <div class="col-6" *ngIf="type_campaing == 1">
+              <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6"  [ngClass]="{'active': clase_discount == 2}"
+                data-kt-button="true">
+                <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                  <input class="form-check-input" type="radio" name="clase_discount" [checked]="clase_discount == 2" (click)="selectedClaseDiscount(2)">
+                </span>
+                <span class="ms-5">
+                  <span class="fs-6 fw-bolder mb-1 d-block">Categorias</span>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-2" *ngIf="clase_discount == 2">
+          <label class="fs-6 fw-bold mt-2 mb-3">Seleccione categoria</label>
+          <select class="form-control form-select-solid fw-bolder" [(ngModel)]="categorie_id" name="categorie_id" (change)="addCategorieSelected()"
+            placeholder="Escoja una categoria">
+            <option value="">Escoja una opción</option>
+            <ng-container *ngFor="let categorie of categories ">
+              <option [value]="categorie.id">{{ categorie.name }}</option>
+            </ng-container>
+          </select>
+        </div>
+        <div class="col-2" *ngIf="clase_discount == 1">
+          <label class="fs-6 fw-bold mt-2 mb-3">Seleccione curso</label>
+          <select class="form-control form-select-solid fw-bolder" [(ngModel)]="course_id" name="course_id" (change)="addCourseSelected()"
+            placeholder="Escoja un curso">
+            <option value="">Escoja una opción</option>
+            <ng-container *ngFor="let course of courses ">
+              <option [value]="course.id">{{ course.title }}</option>
+            </ng-container>
+          </select>
+
+        </div>
+        <div class="col-6" *ngIf="clase_discount == 2">
+          <div class="table-responsive">
+            <!--begin::Table-->
+            <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+              <!--begin::Table head-->
+              <thead>
+                <tr class="fw-bolder text-muted">
+                  <th class="min-w-200px">Categoria</th>
+                  <th class="min-w-50px">Aciones</th>
+                </tr>
+              </thead>
+              <!--end::Table head-->
+              <!--begin::Table body-->
+              <tbody>
+                <tr *ngFor="let categorie_select of categories_selecteds; let i = index">
+
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="symbol symbol-45px me-5">
+                        <img [src]="categorie_select.imagen" alt="">
+                      </div>
+                      <div class="d-flex justify-content-start flex-column">
+                        <a href="#" onclick="return false" class="text-dark fw-bolder text-hover-primary fs-6">{{categorie_select.name}}</a>
+                        <!--<span class="text-muted fw-bold text-muted d-block fs-7">HTML, JS, ReactJS</span>-->
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="d-flex justify-content-start flex-shrink-0">
+                      <a href="#" onclick="return false" (click)="removeCategorie(i)" class="btn btn-icon btn-active-color-primary btn-sm me-1" title="Eliminar">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
+                        <span class="svg-icon svg-icon-3">
+                          <i class="bi bi-trash-fill"></i>
+                        </span>
+                        <!--end::Svg Icon-->
+                      </a>
+
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+              <!--end::Table body-->
+            </table>
+            <!--end::Table-->
+          </div>
+        </div>
+        <div class="col-6" *ngIf="clase_discount == 1">
+          <div class="table-responsive">
+            <!--begin::Table-->
+            <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+              <!--begin::Table head-->
+              <thead>
+                <tr class="fw-bolder text-muted">
+                  <th class="min-w-200px">Curso</th>
+                  <th class="min-w-50px">Aciones</th>
+                </tr>
+              </thead>
+              <!--end::Table head-->
+              <!--begin::Table body-->
+              <tbody>
+                <tr *ngFor="let course_selected of courses_selecteds; let i = index">
+
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="symbol symbol-45px me-5">
+                        <img [src]="course_selected.imagen" alt="">
+                      </div>
+                      <div class="d-flex justify-content-start flex-column">
+                        <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">{{ course_selected.title }}</a>
+                        <!--<span class="text-muted fw-bold text-muted d-block fs-7">HTML, JS, ReactJS</span>-->
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="d-flex justify-content-start flex-shrink-0">
+                      <a href="#" onclick="return false" (click)="removeCourse(i)" class="btn btn-icon btn-active-color-primary btn-sm me-1" title="Eliminar">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
+                        <span class="svg-icon svg-icon-3">
+                          <i class="bi bi-trash-fill"></i>
+                        </span>
+                        <!--end::Svg Icon-->
+                      </a>
+
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+              <!--end::Table body-->
+            </table>
+            <!--end::Table-->
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="card-footer d-flex justify-content-end py-6 px-9">
+      <button type="button" (click)="save()" class="btn btn-primary" id="kt_project_settings_submit">Guardar</button>
+    </div>
+    <input type="hidden">
+    <div></div>
+  </form>
+</div>

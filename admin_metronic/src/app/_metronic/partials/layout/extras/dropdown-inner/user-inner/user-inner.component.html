@@ -1,0 +1,39 @@
+<ng-container *ngIf="user$ | async as _user">
+  <div class="menu-item px-3">
+    <div class="menu-content d-flex align-items-center px-3">
+      <div class="symbol symbol-50px me-5">
+        <img alt="Logo" src="http://127.0.0.1:8000/storage/{{ _user.avatar }}" />
+      </div>
+
+      <div class="d-flex flex-column">
+        <div class="fw-bolder d-flex align-items-center fs-5">
+          {{ _user.name }}
+
+        </div>
+        <a class="fw-bold text-muted text-hover-primary fs-7 cursor-pointer">
+          {{ _user.email }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="separator my-2"></div>
+
+  <div class="menu-item px-5">
+    <a routerLink="/crafted/pages/profile" class="menu-link px-5">
+      Mi perfil
+    </a>
+  </div>
+
+  <div class="menu-item px-5">
+    <a class="menu-link px-5 cursor-pointer" placement="top-start" ngbTooltip="Coming soon">
+      <span class="menu-text">Cambiar password</span>
+    </a>
+  </div>
+
+  <div class="separator my-2"></div>
+
+  <div class="menu-item px-5">
+    <a (click)="logout()" class="menu-link px-5 cursor-pointer"> Cerrar sesión </a>
+  </div>
+</ng-container>

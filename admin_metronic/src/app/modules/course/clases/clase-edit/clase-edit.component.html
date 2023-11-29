@@ -1,0 +1,204 @@
+<div class="modal-content">
+  <div class="modal-header" id="kt_modal_add_categorie_header">
+    <h2 class="fw-bolder">Editar clase</h2>
+    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-categories-modal-action="close"
+      (click)="modal.dismiss();">
+      <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+      <span class="svg-icon svg-icon-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)"
+            fill="currentColor" />
+          <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+        </svg>
+      </span>
+    </div>
+  </div>
+  <div class="modal-body scroll-y">
+    <form id="kt_project_settings_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+      <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading |async"></span>
+      <div class="card-body p-2">
+
+        <div class="row mb-8">
+
+          <div class="col-12">
+            <label class="fs-6 fw-bold mt-2 mb-3">Nombre de la clase</label>
+            <input type="text" class="form-control form-control-solid" [(ngModel)]="title" name="title">
+          </div>
+
+        </div>
+
+        <div class="fv-row mb-7">
+          <label class="required fw-bold fs-6 mb-2">Estado</label>
+          <select name="status" class="form-control" [(ngModel)]="state" placeholder="Estado">
+            <option value="1">Activo</option>
+            <option value="2">Inactivo</option>
+          </select>
+        </div>
+
+        <div class="row mb-8">
+          <div class="col-xl-12 fv-row fv-plugins-icon-container">
+            <div class="fs-6 fw-bold mt-2 mb-3">Descripcion</div>
+            <ckeditor [data]="description" (change)="onChange($event)"></ckeditor>
+          </div>
+        </div>
+
+        <div class="card-footer d-flex justify-content-end py-6 px-9">
+          <button type="button" (click)="save()" class="btn btn-primary"
+            id="kt_project_settings_submit">Guardar</button>
+        </div>
+
+        <div class="col-12">
+          <hr style="width:50%; margin: auto;">
+          <label class="d-block fw-bold fs-6 m-3">Gargar video de la clase</label>
+          <div class="custom-file">
+            <div class="row">
+              <div class="col-lg-11">
+                <input type="file" class="form-control" id="videoFile" accept=".mp4" (change)="processVideo($event)">
+
+              </div>
+              <div class="col-lg-1">
+                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="uploadVideo()" *ngIf="!isLoadVideo" title="Agregar video">+</button>
+
+              </div>
+            </div>
+
+
+            <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoadVideo"></span>
+            <div *ngIf="link_video_clase" class="mt-1">
+              <iframe [src]="urlVideo()" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-8">
+          <br>
+          <hr style="width:50%; margin: auto;">
+
+          <div class="col-12">
+            <label class="fs-6 fw-bold mt-2 mb-3">Sube los recursos de la clase</label>
+            <div class="custom-file">
+              <div class="row">
+                <div class="col-lg-11">
+                  <input type="file" class="form-control" id="custom-file" multiple (change)="processFiles($event)">
+                </div>
+                <div class="col-lg-1">
+                  <button class="btn btn-sm btn-primary" (click)="uploadFiles()" *ngIf="!isUploadFile">+</button>
+                  <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isUploadFile"></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-12 text-center">
+            <br>
+            <hr style="width:50%; margin: auto;">
+            <div class="card card-flush">
+              <div class="card-header pt-7">
+                <h3 class="card-title align-items-start flex-column">
+                  <span class="card-label fw-bolder text-dark">Archivos </span>
+                  <!--<span class="text-gray-400 mt-1 fw-bold fs-6">1M Products Shipped so far</span>-->
+                </h3>
+              </div>
+
+              <div class="card-body">
+                <!--begin::Scroll-->
+                <div class="hover-scroll-overlay-y pe-6 me-n6">
+                  <ng-container *ngFor="let FILE of FILES">
+                    <div class="rounded border-gray-300 border-1 border-gray-300 border-dashed px-7 py-3 mb-6">
+
+                      <div class="d-flex flex-stack mb-3">
+
+                        <div class="me-3">
+
+                          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                            class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                            <path
+                              d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
+                            <path
+                              d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+                          </svg>
+
+                          <a href="#" onclick="return false" class="text-gray-800 text-hover-primary fw-bolder">{{
+                            FILE.name }}</a>
+
+                        </div>
+
+                      </div>
+
+
+                      <div class="d-flex flex-stack">
+
+                        <span class="text-gray-400 fw-bolder">Size:
+                          <a href="#" onclick="return false" class="text-gray-800 text-hover-primary fw-bolder">{{
+                            FILE.size }} KB</a></span>
+
+
+                        <span class="badge badge-light-success">Activo</span>
+
+                      </div>
+
+                    </div>
+                  </ng-container>
+
+                </div>
+                <!--end::Scroll-->
+              </div>
+
+              <div class="card-header pt-7">
+                <h3 class="card-title align-items-start flex-column">
+                  <span class="card-label fw-bolder text-dark">Archivos guardados</span>
+                  <!--<span class="text-gray-400 mt-1 fw-bold fs-6">1M Products Shipped so far</span>-->
+                </h3>
+              </div>
+              <div class="card-body">
+                <!--begin::Scroll-->
+                <div class="hover-scroll-overlay-y pe-6 me-n6">
+                  <ng-container *ngFor="let FILE of FILES_CLASE">
+                    <div class="rounded border-gray-300 border-1 border-gray-300 border-dashed px-7 py-3 mb-6">
+
+                      <div class="d-flex flex-stack mb-3">
+
+                        <div class="me-3">
+
+                          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                            class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                            <path
+                              d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
+                            <path
+                              d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+                          </svg>
+
+                          <a href="#" onclick="return false" class="text-gray-800 text-hover-primary fw-bolder">{{
+                            FILE.name_file }}</a>
+
+                        </div>
+
+                      </div>
+
+
+                      <div class="d-flex flex-stack">
+
+                        <span class="text-gray-400 fw-bolder">Size:
+                          <a href="#" onclick="return false" class="text-gray-800 text-hover-primary fw-bolder">{{ FILE.size }} </a></span>
+
+                        <span class="badge badge-light-success">{{ FILE.type }} </span>
+
+                        <button class="btn btn-sm btn-danger" (click)="deleteFile(FILE)">X</button>
+                      </div>
+
+                    </div>
+                  </ng-container>
+
+                </div>
+                <!--end::Scroll-->
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
